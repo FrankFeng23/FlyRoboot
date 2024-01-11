@@ -1,0 +1,11 @@
+{
+    "files.encoding": "gb2312",
+    "files.associations": {
+        "timer.h": "c",
+        "bsp_led.h": "c",
+        "uart.h": "c",
+        "iic.h": "c",
+        "at24c02.h": "c",
+        "imu.h": "c"
+    }
+}
