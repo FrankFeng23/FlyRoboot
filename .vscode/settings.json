@@ -6,6 +6,7 @@
         "uart.h": "c",
         "iic.h": "c",
         "at24c02.h": "c",
-        "imu.h": "c"
+        "imu.h": "c",
+        "stm32f1xx.h": "c"
     }
 }

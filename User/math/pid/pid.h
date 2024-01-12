@@ -1,6 +1,6 @@
 #ifndef __PID_H_
 #define __PID_H_
-
+#include "stm32f1xx.h"
 typedef volatile struct
 {
 	float desired;     //< set point
@@ -20,6 +20,9 @@ typedef volatile struct
 
 
 
+void pidupdate(PidObject* pid ,const float dt);
+void Cascadepid(PidObject* pidw,PidObject* pidn,float dt);
+void pidreset(PidObject** ppid,uint8_t len);
 
 
 
