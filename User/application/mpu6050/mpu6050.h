@@ -122,8 +122,13 @@
 
 uint8_t MPU6050_ID_Text(void);
 void MPU6050_Init(void);
+void mpu6050_getdate(uint16_t* mpudate);
+
+
+/*
 void mpu6050_read_accel_data(uint16_t* buffer);
 void mpu6050_read_gyro_data(uint16_t* buffer);
+*/
 
 
 //MPU6050原始数据结构体
@@ -137,6 +142,7 @@ typedef struct
     uint16_t gyro_z;
 }st_mpu;
 
+extern st_mpu mpu6050_data;
 
 
 #endif
