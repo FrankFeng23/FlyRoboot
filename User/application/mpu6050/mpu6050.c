@@ -1,4 +1,5 @@
 #include "mpu6050.h"
+#include "../../math/kalman/kalman.h"
 //mpu6050原始数据
 
 st_mpu mpu6050_data;
@@ -137,6 +138,7 @@ void MPU6050_Init(void)
     iic_mpu6050_write_one_byte(MPU6050_ADR,MPU6050_RA_GYRO_CONFIG,0x18);
 }
 
+/*
 //读取MPU6050加速度计数据
 void mpu6050_read_accel_data(uint16_t* buffer)
 {
@@ -155,6 +157,38 @@ void mpu6050_read_gyro_data(uint16_t* buffer)
     buffer[0] = buf[0]<<8 | buf[1] ;
     buffer[1] = buf[2]<<8 | buf[3] ;
     buffer[2] = buf[4]<<8 | buf[5] ;
+}
+*/
+
+#define Acc_read()        iic_mpu6050_read_bytes(MPU6050_ADR,MPU6050_ACC_ADR,buf,6)
+#define Gyro_read()       iic_mpu6050_read_bytes(MPU6050_ADR,MPU6050_ACC_ADR,&buf[6],6)
+
+//获取MPU6050滤波后数据
+void mpu6050_getdate(uint16_t* mpudate)
+{
+    uint8_t i;
+    uint8_t buf[12];
+    Acc_read();
+    Gyro_read();
+    for(i=0;i<6;i++)
+    {
+        mpudate[i]=(((uint16_t)buf[i<<1]<<8) + buf[(i<<1)+1]);
+        //加速度进行一阶卡尔曼滤波
+        if(i<3)
+        {
+            struct _1_ekf_filter ekf[3]={{0.02,0,8192,0,0.001,0.543},{0.02,0,8192,0,0.001,0.543},{0.02,0,8192,0,0.001,0.543}};
+            kalman_1(&ekf[i],(float)mpudate[i]);
+            mpudate[i]=(uint16_t)ekf[i].out;
+        }
+        //角速度进行一阶低通滤波
+        else
+        {
+            uint8_t k=i-3;
+            const float factor =0.25f;
+            static float tbuf[3];
+            mpudate[i]=tbuf[k]=(1-factor)*tbuf[k]+factor*mpudate[i];
+        }
+    }
 }
 
 

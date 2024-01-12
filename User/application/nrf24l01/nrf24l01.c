@@ -65,3 +65,16 @@ void nrf_rx_mode(void)
     NRF_CE_1;
 }
 
+
+
+void nrf_tx_packet(uint8_t* txbuffer)
+{
+
+}
+
+
+void nrf_rx_packet(uint8_t* rxbuffer)
+{
+
+}
+
