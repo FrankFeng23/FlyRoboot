@@ -1,5 +1,12 @@
 #include "pid.h"
 
+PidObject pidRateX;
+PidObject pidRateY;
+PidObject pidRateZ;
+
+PidObject pidPitch;
+PidObject pidRoll;
+PidObject pidYaw;
 
 void pidreset(PidObject** ppid,uint8_t len)
 {

@@ -24,6 +24,12 @@ void pidupdate(PidObject* pid ,const float dt);
 void Cascadepid(PidObject* pidw,PidObject* pidn,float dt);
 void pidreset(PidObject** ppid,uint8_t len);
 
+extern	PidObject pidRateX;
+extern	PidObject pidRateY;
+extern	PidObject pidRateZ;
 
+extern	PidObject pidPitch;
+extern	PidObject pidRoll;
+extern	PidObject pidYaw;
 
 #endif
