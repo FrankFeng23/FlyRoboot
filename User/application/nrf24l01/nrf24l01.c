@@ -67,15 +67,50 @@ void nrf_rx_mode(void)
 }
 
 
-
-void nrf_tx_packet(uint8_t* txbuffer)
+//nrf发送数据包
+uint8_t nrf_tx_packet(uint8_t* txbuffer)
 {
-
+    uint8_t sta;
+    NRF_CE_0;
+    //写数据到发送缓冲区
+    spi_w_buffer(WR_TX_PLOAD,txbuffer,0x32);
+    NRF_CE_1;  
+    //判断发送完成中断信号
+    while(NRF_IRQ_READ());
+    //读取状态寄存器值
+    sta=spi_r_reg(STATUS,sta);
+    //写状态寄存器，清空中断标志
+    spi_w_reg(NRF_WRITE_REG+STATUS,sta);
+    if (sta&MAX_TX)
+    {
+        //清空发送缓冲区
+        spi_w_reg(FLUSH_TX,0xff);
+        return MAX_TX;
+    }
+    else if (sta&TX_OK)
+    {
+        return 1;
+    }
+    return 0;
 }
 
-
-void nrf_rx_packet(uint8_t* rxbuffer)
+//NRF接收数据包
+uint8_t nrf_rx_packet(uint8_t* rxbuffer)
 {
-    
+    uint8_t sta;
+    NRF_CE_1;
+    //获取STATUS状态寄存器的值
+    sta = spi_r_reg(STATUS);
+    //写状态寄存器，清除中断标志
+    spi_w_reg(NRF_WRITE_REG+STATUS,sta);
+    if(sta&RX_OK)
+    {
+        //从接收缓冲区读取数据
+        spi_r_buffer(RD_RX_PLOAD,rxbuffer,0x32);
+        //清空数据缓冲区
+        spi_w_reg(FLUSH_RX,0xff);
+        return 1;
+    }
+    return 0;
 }
 

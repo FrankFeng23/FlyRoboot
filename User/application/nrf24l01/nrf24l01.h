@@ -4,6 +4,9 @@
 #include "stm32f1xx.h"
 #include "../../bsp/spi/spi.h"
 
+#define MAX_TX  		0x10  //达到最大发送次数中断
+#define TX_OK   		0x20  //TX发送完成中断
+#define RX_OK   		0x40  //接收到数据中断s
 //NRF24L01寄存器操作命令
 #define NRF_READ_REG    0x00  //读配置寄存器,低5位为寄存器地址
 #define NRF_WRITE_REG   0x20  //写配置寄存器,低5位为寄存器地址
@@ -44,6 +47,9 @@
 #define NRF_CE_1                 GPIOB->BSRR=NRF_CE_PIN
 #define NRF_CE_0                 GPIOB->BRR=NRF_CE_PIN
 
+#define NRF_IRQ_PORT			 GPIOB
+#define NRF_IRQ_PIN				 GPIO_PIN_5
+#define NRF_IRQ_READ()           GPIOB->IDR&GPIO_PIN_5
 
 
 //接收模拟数据
@@ -59,6 +65,8 @@ typedef struct
 	uint16_t AUX4;	
 }_st_Remote;
 
+uint8_t nrf_tx_packet(uint8_t* txbuffer);
+uint8_t nrf_rx_packet(uint8_t* rxbuffer);
 
 
 #endif
