@@ -52,22 +52,11 @@
 #define NRF_IRQ_READ()           GPIOB->IDR&GPIO_PIN_5
 
 
-//接收模拟数据
-typedef struct
-{
-	uint16_t roll;
-	uint16_t pitch;
-	uint16_t thr;
-	uint16_t yaw;
-	uint16_t AUX1;
-	uint16_t AUX2;
-	uint16_t AUX3;
-	uint16_t AUX4;	
-}_st_Remote;
+
 
 uint8_t nrf_tx_packet(uint8_t* txbuffer);
 uint8_t nrf_rx_packet(uint8_t* rxbuffer);
 
-extern _st_Remote Remote;
+
 
 #endif

@@ -13,7 +13,7 @@ void FlyPidControl(float dt)
 
             break;
         case READY_11 :
-        
+
             //PID²ÎÊý¸´Î»
             pidreset(pPidObject,6);
 
@@ -45,4 +45,10 @@ void FlyPidControl(float dt)
 
             break;
     }
+}
+
+
+void MotorControl(void)
+{
+
 }
