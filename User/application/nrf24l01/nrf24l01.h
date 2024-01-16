@@ -68,5 +68,6 @@ typedef struct
 uint8_t nrf_tx_packet(uint8_t* txbuffer);
 uint8_t nrf_rx_packet(uint8_t* rxbuffer);
 
+extern _st_Remote Remote;
 
 #endif

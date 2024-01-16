@@ -1,5 +1,5 @@
 #include "mpu6050.h"
-#include "../../math/kalman/kalman.h"
+
 //mpu6050原始数据
 
 st_mpu mpu6050_data;

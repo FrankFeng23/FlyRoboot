@@ -13,7 +13,7 @@ typedef struct
     float yaw;
 }st_ange;
 
-extern st_mpu mpu6050_data;
+extern st_ange angle;
 
 
 

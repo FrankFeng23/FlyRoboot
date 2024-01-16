@@ -3,6 +3,8 @@
 
 #include "stm32f1xx.h"
 #include "../math/pid/pid.h"
+#include "../math/imu/imu.h"
+#include "../application/mpu6050/mpu6050.h"
 
 #define INIT_0 0
 

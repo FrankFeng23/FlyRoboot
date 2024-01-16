@@ -3,6 +3,7 @@
 
 #include "stm32f1xx.h"
 #include "../../bsp/iic/iic.h"
+#include "../../math/kalman/kalman.h"
 
 
 #define MPU6050_ADR                         0xD0
