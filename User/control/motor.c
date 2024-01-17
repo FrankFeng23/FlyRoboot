@@ -9,17 +9,17 @@ void FlyPidControl(float dt)
     switch(status)
     {
         case WAITING_1 :
-
-
+            if(ALL_flag.unlock)
+            {
+                status=READY_11;
+            }
             break;
         case READY_11 :
-
             //PID参数复位
             pidreset(pPidObject,6);
-
+            status=PROCESS_31;
             break;
         case PROCESS_31:
-
             //三轴角速度实测值
             pidRateX.measured=mpu6050_data.gyro_x*Gyro_G;
             pidRateY.measured=mpu6050_data.gyro_y*Gyro_G;
@@ -35,14 +35,13 @@ void FlyPidControl(float dt)
             Cascadepid(&pidPitch,&pidRateY,dt);
             //偏航角PID调节
             Cascadepid(&pidYaw,&pidRateZ,dt);
-
             break;
         case EXIT_255 :
-
-
+            pidreset(pPidObject,6);
+            status=WAITING_1;
             break;
         default:
-
+            status=EXIT_255;
             break;
     }
 }

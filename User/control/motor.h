@@ -5,6 +5,7 @@
 #include "../math/pid/pid.h"
 #include "../math/imu/imu.h"
 #include "../application/mpu6050/mpu6050.h"
+#include "../remote/remote.h"
 
 #define INIT_0 0
 
