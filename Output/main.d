@@ -65,6 +65,7 @@
 ..\output\main.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 ..\output\main.o: ..\User\./bsp/adc/adc.h
 ..\output\main.o: ..\User\./application/mpu6050/mpu6050.h
+..\output\main.o: ..\User\./application/mpu6050/../../math/kalman/kalman.h
 ..\output\main.o: ..\User\./application/at24c02/at24c02.h
 ..\output\main.o: ..\User\./math/imu/imu.h
 ..\output\main.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h

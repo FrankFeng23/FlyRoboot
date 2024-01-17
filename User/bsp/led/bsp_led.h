@@ -32,7 +32,21 @@
 #define LED4_H							GPIOB->BSRR=LED4_PIN
 #define LED4_L							GPIOB->BRR=LED4_PIN
 
+extern volatile uint32_t systick_count;
+
 void LED_GPIO_Config(void);
+void LED_Control(void);
+
+typedef struct 
+{
+	uint16_t Flashingtime;
+	enum{
+		AlwaysON,
+		AlwaysOFF,
+		Flashing,
+		AlternateFlash
+	}status;
+}st_led;
 
 
 #endif /* __LED_H */

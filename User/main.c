@@ -47,10 +47,8 @@ int main(void)
     MPU6050_Init();
     while (1)
     {
-      double a=64;
-      double b=0;
-      b=sqrt(a);
-      printf("%f",b);
+      
+      LED_Control();
       
       
       /* 
@@ -89,7 +87,7 @@ int main(void)
       printf("AT24C02ºÏ≤‚ ß∞‹");
 
     }*/
-    HAL_Delay(2000);
+    
     }
 }
 

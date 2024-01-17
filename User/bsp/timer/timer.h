@@ -16,7 +16,7 @@
 #define TIM3_CLK_ENABLE()                     __HAL_RCC_TIM3_CLK_ENABLE()
 #define TIM2_GPIO_CLK_ENABLE()                __HAL_RCC_GPIOA_CLK_ENABLE()
 
-
+extern volatile uint32_t systick_count;
 extern TIM_HandleTypeDef htimer2;
 extern TIM_HandleTypeDef htimer3;
 

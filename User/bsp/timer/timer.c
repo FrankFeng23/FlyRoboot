@@ -1,7 +1,7 @@
 #include "timer.h"
 #include "../led/bsp_led.h"
 
-
+volatile uint32_t systick_count;
 TIM_HandleTypeDef htimer2;
 TIM_HandleTypeDef htimer3;
 
@@ -40,7 +40,7 @@ void timer3_config(void)
     htimer3.Instance = TIM3;
     htimer3.Init.Prescaler = 7199;
     htimer3.Init.CounterMode = TIM_COUNTERMODE_UP;
-    htimer3.Init.Period = 29999;
+    htimer3.Init.Period = 29;
     htimer3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
 
     HAL_TIM_Base_Init(&htimer3);
@@ -82,7 +82,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim)
 {
     if(htim==&htimer3)
     {
-        HAL_GPIO_TogglePin(LED3_GPIO_PORT,LED3_PIN);
+        systick_count++;
+        //HAL_GPIO_TogglePin(LED3_GPIO_PORT,LED3_PIN);
     }
 }
 

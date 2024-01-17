@@ -59,3 +59,4 @@
 ..\output\mpu6050.o: ..\Libraries\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_hcd.h
 ..\output\mpu6050.o: ..\Libraries\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_mmc.h
 ..\output\mpu6050.o: ..\User\application\mpu6050\../../bsp/iic/iic.h
+..\output\mpu6050.o: ..\User\application\mpu6050\../../math/kalman/kalman.h
