@@ -1,6 +1,6 @@
 #include "motor.h"
 
-PidObject* (pPidObject[]) = {&pidRateX,&pidRateY,&pidRateZ,&pidPitch,&pidYaw,&pidRoll};
+PidObject* (pPidObject[]) = {&pidRateX,&pidRateY,&pidRateZ,&pidRoll,&pidPitch,&pidYaw};
 
 
 void FlyPidControl(float dt)
@@ -21,9 +21,9 @@ void FlyPidControl(float dt)
         case PROCESS_31:
 
             //三轴角速度实测值
-            pidRateX.measured=mpu6050_data.gyro_x;
-            pidRateY.measured=mpu6050_data.gyro_y;
-            pidRateZ.measured=mpu6050_data.gyro_z;
+            pidRateX.measured=mpu6050_data.gyro_x*Gyro_G;
+            pidRateY.measured=mpu6050_data.gyro_y*Gyro_G;
+            pidRateZ.measured=mpu6050_data.gyro_z*Gyro_G;
             //欧拉角转换值（实际值）
             pidRoll.measured=angle.roll;
             pidPitch.measured=angle.pitch;

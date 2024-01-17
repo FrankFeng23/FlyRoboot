@@ -48,5 +48,6 @@ typedef struct
 	}status;
 }st_led;
 
+extern st_led LED;
 
 #endif /* __LED_H */

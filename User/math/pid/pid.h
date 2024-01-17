@@ -1,6 +1,8 @@
 #ifndef __PID_H_
 #define __PID_H_
 #include "stm32f1xx.h"
+
+#define LIMIT(x,min,max)        (x < min ? min : (x > max ? max : x))
 typedef volatile struct
 {
 	float desired;     //< set point

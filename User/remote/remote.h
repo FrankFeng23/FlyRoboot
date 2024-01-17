@@ -4,6 +4,7 @@
 #include "stm32f1xx.h"
 #include "../application/nrf24l01/nrf24l01.h"
 #include "../math/pid/pid.h"
+#include "../bsp/led/bsp_led.h"
 
 #define INIT_0 0
 
@@ -109,6 +110,7 @@ typedef struct
 {
     uint8_t unlock:1
 }_st_ALL_flag;
+
 
 
 extern _st_Remote Remote;

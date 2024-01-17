@@ -93,7 +93,7 @@
 #define EXIT_251 251
 #define EXIT_250 250
 
-
+extern const float Gyro_G;
 
 
 
