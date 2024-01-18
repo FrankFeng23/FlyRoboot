@@ -160,19 +160,17 @@ void mpu6050_read_gyro_data(uint16_t* buffer)
 }
 */
 
-#define Acc_read()        iic_mpu6050_read_bytes(MPU6050_ADR,MPU6050_ACC_ADR,buf,6)
-#define Gyro_read()       iic_mpu6050_read_bytes(MPU6050_ADR,MPU6050_ACC_ADR,&buf[6],6)
 
 //获取MPU6050滤波后数据
 void mpu6050_getdate(uint16_t* mpudate)
 {
     uint8_t i;
-    uint8_t buf[12];
-    Acc_read();
-    Gyro_read();
+    uint8_t buffer[12];
+    iic_mpu6050_read_bytes(MPU6050_ADR,MPU6050_ACC_ADR,buffer,6);
+    iic_mpu6050_read_bytes(MPU6050_ADR,MPU6050_GYRO_ADR,&buffer[6],6);
     for(i=0;i<6;i++)
     {
-        mpudate[i]=(((uint16_t)buf[i<<1]<<8) + buf[(i<<1)+1]);
+        mpudate[i]=(((uint16_t)buffer[i<<1]<<8) + buffer[(i<<1)+1]);
         //加速度进行一阶卡尔曼滤波
         if(i<3)
         {

@@ -2,7 +2,6 @@
 
 PidObject* (pPidObject[]) = {&pidRateX,&pidRateY,&pidRateZ,&pidRoll,&pidPitch,&pidYaw};
 
-
 void FlyPidControl(float dt)
 {
     volatile static uint8_t status=WAITING_1;
@@ -46,8 +45,53 @@ void FlyPidControl(float dt)
     }
 }
 
-
+uint16_t motor[4];
+uint16_t low_thr_cnt;
 void MotorControl(void)
 {
-
+    volatile static uint8_t status=WAITING_1;
+    switch (status)
+    {
+    case WAITING_1:
+        if(ALL_flag.unlock)
+        {
+            motor[0]=motor[1]=motor[2]=motor[3]=0;
+            status=WAITING_2;
+        }
+        break;
+    case WAITING_2:
+        if(Remote.thr>1100)
+        {
+            pidreset(pPidObject,6);
+            low_thr_cnt=0;
+            status=PROCESS_31;
+        }
+        break;
+    case PROCESS_31:
+        uint16_t temp;
+        temp=Remote.thr-1000;
+        if(temp<10)
+        {
+            low_thr_cnt++;
+            if(low_thr_cnt>500)
+            {
+                motor[0]=motor[1]=motor[2]=motor[3]=0;
+                pidreset(pPidObject,6);
+                status=WAITING_2;
+            }
+        }
+        low_thr_cnt=0;
+        motor[0]=motor[1]=motor[2]=motor[3]=LIMIT(temp,0,800);
+        motor[0]+= + pidRateX.out + pidRateY.out + pidRateZ.out;//; 姿态输出分配给各个电机的控制量
+		motor[1]+= - pidRateX.out + pidRateY.out - pidRateZ.out ;//;
+		motor[2]+= + pidRateX.out - pidRateY.out - pidRateZ.out;
+		motor[3]+= - pidRateX.out - pidRateY.out + pidRateZ.out;//;
+        break;
+    case EXIT_255:
+        motor[0]=motor[1]=motor[2]=motor[3]=LIMIT(temp,0,800);
+        status=WAITING_1;
+        break;
+    default:
+        break;
+    }
 }
